@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Flight Booking</h2>
+    <form id="bookingForm">
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="from">From (Departure City):</label>
+        <input type="text" id="from" name="from" required>
+
+        <label for="to">To (Destination City):</label>
+        <input type="text" id="to" name="to" required>
+
+        <label for="date">Date of Flight Reservation:</label>
+        <input type="date" id="date" name="date" required>
+
+        <label for="class">Class:</label>
+        <select id="class" name="class" required>
+            <option value="economy">Economy</option>
+            <option value="business">Business</option>
+        </select>
+
+        <button type="submit">Book Flight</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('bookingForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Gather form data
+        const name = document.getElementById('name').value;
+        const from = document.getElementById('from').value;
+        const to = document.getElementById('to').value;
+        const date = document.getElementById('date').value;
+        const classType = document.getElementById('class').value;
+
+        // Prepare API request
+        const apiUrl = 'https://www.bing.com/aclk?ld=e8PKzt9jblpq2p7Q45NExyBTVUCUyov17eUXv_PP94c4kU3NmaMFj4QSaaZizTBJvw_6wkrFtJIh3CyHJVV5EDSobxX-pgOHh55uKFKQ4gk5yaaIXe8kif_Qk3v0C8L5KNL4ZBU_Vs3dCmwIh3Gynl5AsUCV2ZlHxkpIondsvl5bPzeUpVhzRp3LncmLTh-yJtsjdYTg&u=aHR0cHMlM2ElMmYlMmZhZC5kb3VibGVjbGljay5uZXQlMmZzZWFyY2hhZHMlMmZsaW5rJTJmY2xpY2slM2ZsaWQlM2Q0MzcwMDA3ODIxNDM2Nzc5MSUyNmRzX3Nfa3dnaWQlM2Q1ODcwMDAwODU2OTk5NjEyNyUyNmRzX2FfY2lkJTNkMTQ2OTEwOTU2OSUyNmRzX2FfY2FpZCUzZDIwNjI3NTQ1Njc2JTI2ZHNfYV9hZ2lkJTNkMTUyMTg2MDQ3ODE3JTI2ZHNfYV9saWQlM2Rrd2QtNzMzNDUyNDQ0NiUyNiUyNmRzX2VfYWRpZCUzZDc3ODU5Mzc1MDQ2NDcwJTI2ZHNfZV90YXJnZXRfaWQlM2Rrd2QtNzc4NTk1OTQzNjE5MDAlM2Fsb2MtOTAlMjYlMjZkc19lX25ldHdvcmslM2RvJTI2ZHNfdXJsX3YlM2QyJTI2ZHNfZGVzdF91cmwlM2RodHRwcyUzYSUyZiUyZnd3dy5za3lzY2FubmVyLmNvLmluJTJmJTNmZ2NsaWQlM2RiM2FiNzU5ZDg5ZDIxZTMyMzg4YzEyYTQ4ZTZhYzUzNSUyNmdjbHNyYyUzZDNwLmRzJTI2JTI2dXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkY3BjJTI2dXRtX2NhbXBhaWduJTNkSU4tVHJhdmVsLVNlYXJjaC1CcmFuZC1Ta3lzY2FubmVyLUV4YWN0JTI2dXRtX3Rlcm0lM2RTa3lzY2FubmVyJTI2YXNzb2NpYXRlSUQlM2RTRU1fRkxJXzE5NDIxXzAwMDAwJTI2Y2FtcGFpZ25faWQlM2Q2OTgxNjI2ODMlMjZhZGdyb3VwaWQlM2QxMjQ1NzQ3OTgwMjAyODUxJTI2a2V5d29yZF9pZCUzZGt3ZC03Nzg1OTU5NDM2MTkwMCUzYWxvYy05MCUyNm1zY2xraWQlM2RiM2FiNzU5ZDg5ZDIxZTMyMzg4YzEyYTQ4ZTZhYzUzNQ&rlid=b3ab759d89d21e32388c12a48e6ac535&ntb=1'; // Replace with actual API endpoint
+        const bookingData = {
+            name,
+            from,
+            to,
+            date,
+            class: classType
+        };
+
+        // Make API call to the flight booking API
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer YOUR_API_KEY' // Include your API key if required
+            },
+            body: JSON.stringify(bookingData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Booking Response:', data);
+            alert('Flight booked successfully! Booking ID: ' + data.bookingId);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('There was an error booking your flight. Please try again.');
+        });
+    });
+</script>
+
+</body>
+</html>
